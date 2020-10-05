@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/didasmbalanya/Gabeya-API-E-commerce#readme",
   "devDependencies": {
+    "@types/bcrypt": "3.0.0",
     "@types/cors": "2.8.7",
     "@types/express": "4.17.8",
+    "@types/jsonwebtoken": "8.5.0",
     "@types/node": "14.11.2",
     "@types/swagger-jsdoc": "3.0.2",
     "@types/swagger-ui-express": "4.1.2",
@@ -35,9 +37,11 @@
     "typescript": "4.0.3"
   },
   "dependencies": {
+    "bcrypt": "5.0.0",
     "body-parser": "1.19.0",
     "cors": "2.8.5",
     "express": "4.17.1",
+    "jsonwebtoken": "8.5.1",
     "swagger-jsdoc": "4.2.0",
     "swagger-ui-express": "4.1.4"
   }
