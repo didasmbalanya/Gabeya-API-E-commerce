@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/didasmbalanya/Gabeya-API-E-commerce/issues"
   },
-  "homepage": "https://github.com/didasmbalanya/Gabeya-API-E-commerce#readme"
+  "homepage": "https://github.com/didasmbalanya/Gabeya-API-E-commerce#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
+    "eslint": "7.10.0",
+    "prettier": "2.1.2",
+    "typescript": "4.0.3"
+  }
 }

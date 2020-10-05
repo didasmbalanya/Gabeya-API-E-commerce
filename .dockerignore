@@ -1,0 +1,8 @@
+/node_modules
+jest.*
+.gitignore
+.dockerignore
+.eslintignore
+.eslintrc.json
+.prettierrc
+README.md
