@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: gabeya-postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=gabeya
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  gabeya_api:
+    command: bash -c "yarn db:refresh && yarn dev"
+    build:
+      context: ./
+      dockerfile: docker/dev/Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    container_name: gabeya-backend
+    depends_on:
+      - db
+    ports:
+      - '${PORT}:${PORT}'
+    env_file: ./env
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/gabeya
