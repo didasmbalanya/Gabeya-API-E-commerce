@@ -1,4 +1,8 @@
 import { Router } from 'express';
 const router = Router();
 
+router.get('/', (req, res) => {
+  res.send('Dummy api for items')
+})
+
 export default router;
