@@ -1,9 +1,6 @@
-import {
-  Table,
-  Column,
-  DataType,
-} from 'sequelize-typescript';
+import { Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { Base } from '../base';
+import Cart from './cart';
 
 @Table
 export default class User extends Base<User> {
@@ -34,4 +31,7 @@ export default class User extends Base<User> {
     unique: true,
   })
   phoneNumber: string;
+
+  @HasMany(() => Cart)
+  carts: Cart[];
 }
