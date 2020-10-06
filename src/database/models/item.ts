@@ -4,9 +4,11 @@ import {
   DataType,
   ForeignKey,
   HasMany,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { Base } from '../base';
 import Cart from './cart';
+import CartItem from './cartItem';
 import User from './user';
 
 @Table
@@ -32,13 +34,20 @@ export default class Item extends Base<Item> {
   })
   description: string;
 
-  // // a user seller
-  // @ForeignKey(() => User)
   @Column({
     type: DataType.STRING,
   })
   vendorName: string;
 
-  @HasMany(() => Cart)
-  carts: Cart[];
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+  })
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
+
+  @HasMany(() => CartItem)
+  carts: CartItem[];
 }

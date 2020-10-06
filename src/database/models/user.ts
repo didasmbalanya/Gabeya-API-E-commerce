@@ -1,6 +1,7 @@
 import { Table, Column, DataType, HasMany } from 'sequelize-typescript';
 import { Base } from '../base';
 import Cart from './cart';
+import Item from './item';
 
 @Table
 export default class User extends Base<User> {
@@ -35,4 +36,7 @@ export default class User extends Base<User> {
 
   @HasMany(() => Cart)
   carts: Cart[];
+
+  @HasMany(() => Item)
+  items: Item[];
 }
