@@ -23,6 +23,7 @@ export default class User extends Base<User> {
 
   @Column({
     type: DataType.STRING,
+    allowNull: false,
   })
   password: string;
 

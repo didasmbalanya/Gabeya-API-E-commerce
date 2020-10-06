@@ -15,7 +15,6 @@ const config = {
         require: true,
         rejectUnauthorized: false,
       },
-      keepAlive: true,
     },
   },
 };

@@ -1,21 +1,12 @@
 import { RequestHandler } from 'express';
+import userService from '../../modules/auth/user.service';
 
 import { jwtVerify } from '../authUtils';
 
-import {
-  noToken,
-  notAuthenticated,
-  invalidToken,
-  notAllowed,
-} from '../constants';
+import { notAuthenticated, invalidToken } from '../constants';
 
 // to set up later
 // service for querying users
-const userService = {
-  findById() {
-    return 1;
-  },
-};
 
 /**
  * @function auth Auth middleware for authentication requests
@@ -28,7 +19,7 @@ export const auth: RequestHandler = async (req, res, next) => {
     // check if endpoint has auth headers
     const { authorization } = req.headers;
     if (!authorization) {
-      throw Error(noToken);
+      throw Error(notAuthenticated);
     }
     // split token from Bearer outh2.0 standard
     const token = authorization.split(' ').pop();
@@ -38,7 +29,7 @@ export const auth: RequestHandler = async (req, res, next) => {
     if (!userId) throw Error(notAuthenticated);
 
     // from here token is authenticated
-    const user = await userService.findById();
+    const user = await userService.findById(userId);
     if (!user) throw Error(invalidToken);
     // add user to request object
     (req as any).user = user;

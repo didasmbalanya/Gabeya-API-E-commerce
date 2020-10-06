@@ -4,6 +4,7 @@ import { swaggerSpec } from '../utils/swagger';
 import cartRouter from '../modules/cart/router';
 import authRouter from '../modules/auth/router';
 import itemsRouter from '../modules/items/router';
+import { auth } from '../utils/middlewares/authMiddleware';
 
 const router = Router();
 
@@ -19,9 +20,9 @@ router.use('/api-docs', serve, setup(swaggerSpec));
 router.use('/auth', authRouter);
 
 // main route handler for items routes
-router.use('/items', itemsRouter);
+router.use('/items', auth, itemsRouter);
 
 // // main route handler for cart routes
-router.use('/cart', cartRouter);
+router.use('/cart', auth, cartRouter);
 
 export default router;

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/register', (req, res) => {
   res.send('Dummy api for auth')
 })
 

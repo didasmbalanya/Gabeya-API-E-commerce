@@ -1,5 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
-import { hashSync, compareSync } from 'bcrypt';
+import { hash, compareSync } from 'bcryptjs';
 import { Request } from 'express';
 
 const JWT_SECRET = process.env.JWT_SECRET_ACCESS || 'secret';
@@ -7,16 +7,15 @@ const JWT_SECRET = process.env.JWT_SECRET_ACCESS || 'secret';
 // bcrypt
 /**
  * @function hashFunc set to 10 rounds of salt hashing rounds
- * @param {string} password password to hash
- * @returns {string} hashed value of the password input
+ * @param  password password to hash
+ * @returns hashed value of the password input
  */
-export const hashFunc = (password: string) => hashSync(password, 10);
+export const hashFunc = async (password: string) => await hash(password, 10);
 
 /**
  *@function hashCompare used to compare plain text and hashed text
- * @param {string} plainText
- * @param {string} hashedText
- * @returns {boolean}
+ * @param plainText
+ * @param hashedText
  */
 export const hashCompare = (plainText: string, hashedText: string) =>
   compareSync(plainText, hashedText);
