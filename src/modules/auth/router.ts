@@ -1,8 +1,9 @@
 import { Router } from 'express';
+import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
+import { register } from './controller';
+import { userSchema } from './validationSchema';
 const router = Router();
 
-router.get('/register', (req, res) => {
-  res.send('Dummy api for auth')
-})
+router.post('/register', validatorMiddleware(userSchema, 'body'), register);
 
 export default router;
