@@ -12,7 +12,7 @@ const app = express();
 // sync database
 syncDb()
   .then(() => {
-    console.log('>>>>>>> SUCCESS');
+    console.log('>>>>>>>>>>>>>>>>> DB SYNC SUCCESS >>>>>>>>>>>>>>>>');
   })
   .catch((e) => {
     console.log('error \n', e);

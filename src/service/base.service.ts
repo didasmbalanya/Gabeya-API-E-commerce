@@ -2,10 +2,8 @@ import { Repository, Model } from 'sequelize-typescript';
 import {
   Includeable,
   FindOptions,
-  Identifier,
   Transaction,
   WhereOptions,
-  AttributeType,
 } from 'sequelize/types';
 
 export class BaseService<T extends Model<T>, TId extends number> {
