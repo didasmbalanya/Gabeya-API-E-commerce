@@ -1,5 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
-import { hash, compareSync } from 'bcryptjs';
+import { hashSync, compareSync } from 'bcryptjs';
 import { Request } from 'express';
 
 const JWT_SECRET = process.env.JWT_SECRET_ACCESS || 'secret';
@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET_ACCESS || 'secret';
  * @param  password password to hash
  * @returns hashed value of the password input
  */
-export const hashFunc = async (password: string) => await hash(password, 10);
+export const hashFunc = (password: string) => hashSync(password, 10);
 
 /**
  *@function hashCompare used to compare plain text and hashed text
@@ -25,7 +25,7 @@ export const hashCompare = (plainText: string, hashedText: string) =>
  * @param {string} userId passed in an object { userId } as payload, defaultValue: secret
  */
 export const jwtSignAccess = (userId: number) => {
-  sign({ userId }, JWT_SECRET, { expiresIn: '24h' });
+  return sign({ userId }, JWT_SECRET, { expiresIn: '24h' });
 };
 
 /**

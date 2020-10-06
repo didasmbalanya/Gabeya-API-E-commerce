@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
-import { register } from './controller';
-import { userSchema } from './validationSchema';
+import { login, register } from './controller';
+import { loginSchema, userSchema } from './validationSchema';
 const router = Router();
 
 /**
@@ -44,5 +44,37 @@ const router = Router();
  *
  */
 router.post('/register', validatorMiddleware(userSchema, 'body'), register);
+
+/**
+ * @swagger
+ * path:
+ *   /auth/login:
+ *    post:
+ *      tags:
+ *        - user
+ *      description: garanting a token to a valid a user
+ *      produces:
+ *        - application/json
+ *      requestBody:
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *            properties:
+ *              email:
+ *                 type: string
+ *                 description: user email
+ *              password:
+ *                 type: string
+ *                 description: user password
+ *      responses:
+ *        200:
+ *          description: success
+ *        401:
+ *          description: invalid credentials
+ *        500:
+ *          description: server error
+ *
+ */
+router.post('/login', validatorMiddleware(loginSchema, 'body'), login);
 
 export default router;

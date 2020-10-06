@@ -51,7 +51,7 @@ export class BaseService<T extends Model<T>, TId extends number> {
     model: TInterface,
     t?: Transaction
   ) => {
-    const result = await this.model.create(model, { transaction: t });
+    const result = await this.model.create(model, { transaction: t,  });
     return result ? (result.get({ plain: true }) as T) : null;
   };
 
