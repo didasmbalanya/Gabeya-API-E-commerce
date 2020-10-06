@@ -1,19 +1,21 @@
 version: '3'
 services:
   db:
-    image: mongo
-    container_name: gabeya-postgres
+    image: mysql:latest
+    container_name: gabeya-mysql
     restart: always
     environment:
-      - MONGO_DB=gabeya
-      - MONGO_USER=mongo
-      - MONGO_PASSWORD=mongo
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=CHIRINOS
+      - MYSQL_USER=users_service
+      - MYSQL_PASSWORD=123
+    ports:
+      - '${DB_PORT}:3306'
 
   gabeya_api:
-    command: bash -c "yarn db:refresh && yarn dev"
-    build:
-      context: ./
-      dockerfile: docker/dev/Dockerfile
+    command: bash -c "yarn dev"
+    build: .
     volumes:
       - ./:/usr/src/app
     container_name: gabeya-backend
@@ -21,6 +23,13 @@ services:
       - db
     ports:
       - '${PORT}:${PORT}'
-    env_file: ./env
+    env_file: .env
     environment:
-      DATABASE_URL: mongo://mongo:mongo@db:5432/gabeya
+      DATABASE_HOST: gabeya-mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: CHIRINOS
+      MYSQL_USER: users_service
+      MYSQL_PASSWORD: 123
+      PORT: 5000
+      DB_PORT: 33060

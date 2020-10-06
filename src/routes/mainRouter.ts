@@ -21,7 +21,7 @@ router.use('/auth', authRouter);
 // main route handler for items routes
 router.use('/items', itemsRouter);
 
-// main route handler for cart routes
+// // main route handler for cart routes
 router.use('/cart', cartRouter);
 
 export default router;
