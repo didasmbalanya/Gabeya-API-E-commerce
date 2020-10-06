@@ -8,7 +8,7 @@ export const syncDb = async (): Promise<void> => {
     console.log(
       '============ database sync ================ \n ',
       error,
-      ' \n ============================'
+      '============ database sync ================ \n '
     );
   }
 };

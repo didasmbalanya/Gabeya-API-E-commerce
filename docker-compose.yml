@@ -6,8 +6,7 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_ROOT_PASSWORD=123
-      - MYSQL_DATABASE=CHIRINOS
+      - MYSQL_DATABASE=GABEYA
       - MYSQL_USER=users_service
       - MYSQL_PASSWORD=123
     ports:
@@ -28,7 +27,7 @@ services:
       DATABASE_HOST: gabeya-mysql
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: CHIRINOS
+      MYSQL_DATABASE: GABEYA
       MYSQL_USER: users_service
       MYSQL_PASSWORD: 123
       PORT: 5000

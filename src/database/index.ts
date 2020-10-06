@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
 
 const config = require('../config/config');
 
@@ -18,5 +18,23 @@ const database = new Sequelize(
   settings
 );
 
+// const database = new Sequelize({
+//   dialect: 'mysql',
+//   database: env.DATABASE_NAME,
+//   username: env.DATABASE_USERNAME,
+//   password: env.DATABASE_PASSWORD,
+//   models: [modelsPath],
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false,
+//     },
+//     keepAlive: true,
+//   },
+//   host: env.DATABASE_HOST,
+//   define: {
+//     paranoid: true,
+//   },
+// });
 
 export default database;

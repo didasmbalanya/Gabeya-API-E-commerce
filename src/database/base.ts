@@ -7,5 +7,5 @@ export class Base<T> extends Model<T> {
     autoIncrement: true,
     type: DataType.INTEGER,
   })
-  id: number;
+  id!: number;
 }
