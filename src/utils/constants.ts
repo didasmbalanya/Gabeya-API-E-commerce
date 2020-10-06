@@ -14,3 +14,4 @@ export const passwordErrorMessage =
   'should have a minimum of five characters, at least one letter and one number';
 export const emailExistsError = 'user with the email already exists';
 // success strings
+export const itemExists = 'item with given name, price and vendor already exists';

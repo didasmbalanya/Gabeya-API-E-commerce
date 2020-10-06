@@ -33,7 +33,7 @@ const options = {
         description: 'user endpoints',
       },
       {
-        name: 'items',
+        name: 'item',
         description: 'items endpoints',
       },
       {

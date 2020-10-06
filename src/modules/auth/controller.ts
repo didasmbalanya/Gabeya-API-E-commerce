@@ -57,7 +57,9 @@ export const login = async (
     // if no user exists
     if (!foundUser) {
       return res.status(401).send({
-        message: 'invalid credentials',
+        error: {
+          message: 'invalid credentials',
+        },
       });
     }
 
@@ -65,7 +67,9 @@ export const login = async (
     const validPass = hashCompare(password, foundUser.password);
     if (!validPass) {
       return res.status(401).send({
-        message: 'invalid credentials',
+        error: {
+          message: 'invalid credentials',
+        },
       });
     }
 

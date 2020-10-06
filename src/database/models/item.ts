@@ -7,12 +7,18 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 import { Base } from '../base';
-import Cart from './cart';
 import CartItem from './cartItem';
 import User from './user';
 
 @Table
 export default class Item extends Base<Item> {
+  @Column({
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+    type: DataType.INTEGER,
+  })
+  id!: number;
   @Column({
     type: DataType.STRING,
   })
