@@ -95,6 +95,16 @@ export class BaseService<T extends Model<T>, TId extends number> {
   };
 
   /**
+   * @method delete 
+   * @param id 
+   */
+  async delete(id: any) {
+    return await this.model.destroy({
+      where: { id },
+    });
+  }
+
+  /**
    * @method getValidPageNumber calculates for valid page numbers or returns max/min
    * @param page
    * @param totalPages

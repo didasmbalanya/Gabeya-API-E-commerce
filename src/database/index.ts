@@ -15,7 +15,7 @@ const database = new Sequelize(
   env.DATABASE_NAME,
   env.DATABASE_USERNAME,
   env.DATABASE_PASSWORD,
-  settings
+  settings,
 );
 
 // const database = new Sequelize({

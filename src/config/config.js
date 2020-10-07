@@ -5,7 +5,7 @@ const appEnvironment = env.NODE_ENV;
 // database configs
 const config = {
   [appEnvironment]: {
-    dialect: env.DATABASE_DIALECT,
+    dialect: "mysql",
     host: env.DATABASE_HOST,
     define: {
       paranoid: true,

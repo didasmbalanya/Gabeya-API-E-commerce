@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
 import { paramIdObject } from '../../utils/validationSchemas';
-import { createItem, getItem, updateItem } from './controller';
+import { createItem, deleteItem, getItem, updateItem } from './controller';
 import { itemSchema, itemUpdateSchema } from './validationSchema';
 const router = Router();
 
@@ -139,5 +139,37 @@ router.put(
   validatorMiddleware(itemUpdateSchema, 'body'),
   updateItem
 );
+
+/**
+ * @swagger
+ * path:
+ *   /items/{id}:
+ *    delete:
+ *      tags:
+ *        - item
+ *      description: delete one item
+ *      produces:
+ *        - application/json
+ *      security:
+ *        - basicAuth : []
+ *      parameters:
+ *        - name: id
+ *          in: path
+ *          required: true
+ *          style: form
+ *          description: unique key identifier
+ *          schema:
+ *           type: integer
+ *      responses:
+ *        200:
+ *          description: success
+ *        401:
+ *          description: unauthenticated
+ *        500:
+ *          description: server error
+ *
+ */
+router.delete('/:id', validatorMiddleware(paramIdObject, 'params'), deleteItem);
+
 
 export default router;

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { itemExists } from '../../utils/constants';
+import { itemExists, notAllowed, notFound } from '../../utils/constants';
 import itemService from './item.service';
 
 /**
@@ -91,6 +91,23 @@ export const updateItem = async (
     const { name, photo, price, description, vendorName } = req.body;
     const { id } = req.params;
 
+    const { id: userId } = (req as any).user;
+
+    const item = await itemService.findOne({
+      where: {
+        id,
+        userId,
+      },
+    });
+
+    if (!item) {
+      return res.status(404).send({
+        error: {
+          message: notAllowed,
+        },
+      });
+    }
+
     const updated = await itemService.update(id, {
       name,
       photo,
@@ -117,6 +134,27 @@ export const deleteItem = async (
   next: NextFunction
 ) => {
   try {
+    const { id } = req.params;
+    const { id: userId } = (req as any).user;
+
+    const item = await itemService.findOne({
+      where: {
+        id,
+        userId,
+      },
+    });
+
+    if (!item) {
+      return res.status(404).send({
+        error: {
+          message: notAllowed,
+        },
+      });
+    }
+
+    const deleted = await itemService.delete(id);
+
+    return res.send({ deleted: !!deleted });
   } catch (error) {
     next((error.errors && error.errors[0]) || error);
   }
