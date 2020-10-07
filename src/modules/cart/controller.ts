@@ -126,3 +126,44 @@ export const getCartDetails = async (
     next((error.errors && error.errors[0]) || error);
   }
 };
+
+/**
+ * @function removeItemFromCart used to items to a cart
+ * @param req
+ * @param res
+ * @param next
+ */
+export const removeItemFromCart = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id: itemId } = req.params;
+    const { id: userId } = (req as any).user;
+
+    const cart = await cartService.findOne({
+      where: {
+        userId,
+      },
+    });
+
+    if (!cart) {
+      return res.status(404).send({
+        message: 'cart has nothing',
+      });
+    }
+
+    // delete from logged in users cart
+    const deletedItem = await cartItemService.model.destroy({
+      where: {
+        cartId: cart!.id,
+        itemId: itemId,
+      },
+    });
+
+    res.send({ deleted: !!deletedItem });
+  } catch (error) {
+    next((error.errors && error.errors[0]) || error);
+  }
+};

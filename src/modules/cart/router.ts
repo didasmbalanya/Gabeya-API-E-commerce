@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
-import { addItemToCart, createCart, getCartDetails } from './controller';
+import { paramIdObject } from '../../utils/validationSchemas';
+import { addItemToCart, createCart, getCartDetails, removeItemFromCart } from './controller';
 import { cartObjectSchema } from './validationSchema';
 const router = Router();
 
@@ -94,5 +95,40 @@ router.post(
  *
  */
 router.get('/', getCartDetails);
+
+/**
+ * @swagger
+ * path:
+ *   /cart/{id}:
+ *    delete:
+ *      tags:
+ *        - cart
+ *      description: remove one item from cart
+ *      produces:
+ *        - application/json
+ *      security:
+ *        - basicAuth : []
+ *      parameters:
+ *        - name: id
+ *          in: path
+ *          required: true
+ *          style: form
+ *          description: unique key identifier
+ *          schema:
+ *           type: integer
+ *      responses:
+ *        200:
+ *          description: success
+ *        401:
+ *          description: unauthenticated
+ *        500:
+ *          description: server error
+ *
+ */
+router.delete(
+  '/:id',
+  validatorMiddleware(paramIdObject, 'params'),
+  removeItemFromCart
+);
 
 export default router;
