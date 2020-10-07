@@ -19,3 +19,9 @@ export const itemUpdateSchema = Joi.object({
   description: nameSchema,
   vendorName: nameSchema,
 });
+
+export const orderQueryParamObject = Joi.object({
+  order: Joi.string().valid('ASC', 'asc', 'DESC', 'desc').default('ASC'),
+  page: Joi.number().default(1).greater(0),
+  limit: Joi.number().default(10).greater(0),
+});

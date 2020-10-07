@@ -171,6 +171,10 @@ export const getItems = async (
   res: Response,
   next: NextFunction
 ) => {
+  const { order, page, limit } = req.query;
+  const toUpper = (order as string).toUpperCase();
+
+  res.send({ toUpper, page, limit });
   try {
   } catch (error) {
     next((error.errors && error.errors[0]) || error);

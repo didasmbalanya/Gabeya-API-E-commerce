@@ -1,8 +1,18 @@
 import { Router } from 'express';
 import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
 import { paramIdObject } from '../../utils/validationSchemas';
-import { createItem, deleteItem, getItem, updateItem } from './controller';
-import { itemSchema, itemUpdateSchema } from './validationSchema';
+import {
+  createItem,
+  deleteItem,
+  getItem,
+  getItems,
+  updateItem,
+} from './controller';
+import {
+  itemSchema,
+  itemUpdateSchema,
+  orderQueryParamObject,
+} from './validationSchema';
 const router = Router();
 
 /**
@@ -171,5 +181,50 @@ router.put(
  */
 router.delete('/:id', validatorMiddleware(paramIdObject, 'params'), deleteItem);
 
+/**
+ * @swagger
+ * path:
+ *   /items/:
+ *    get:
+ *      tags:
+ *        - item
+ *      description: get a paginated list of items sorted by price
+ *      produces:
+ *        - application/json
+ *      security:
+ *        - basicAuth : []
+ *      parameters:
+ *        - name: order
+ *          in: query
+ *          required: false
+ *          style: form
+ *          description: order for sort param allows only ['asc', 'desc']
+ *          schema:
+ *           type: string
+ *           enum: [asc, desc, ASC, DESC]
+ *        - name: page
+ *          in: query
+ *          required: false
+ *          style: form
+ *          description: page number requested
+ *          schema:
+ *           type: integer
+ *        - name: limit
+ *          in: query
+ *          required: false
+ *          style: form
+ *          description: items count per page
+ *          schema:
+ *           type: integer
+ *      responses:
+ *        200:
+ *          description: success
+ *        401:
+ *          description: unauthenticated
+ *        500:
+ *          description: server error
+ *
+ */
+router.get('/', validatorMiddleware(orderQueryParamObject, 'query'), getItems);
 
 export default router;

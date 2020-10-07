@@ -16,7 +16,7 @@ export const validatorMiddleware = (
     });
     const valid = error == null;
     if (valid) {
-      req = value;
+      req[property] = value;
       next();
     } else {
       // const { details } = error;

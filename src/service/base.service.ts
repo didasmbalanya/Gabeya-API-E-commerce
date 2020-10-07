@@ -78,8 +78,8 @@ export class BaseService<T extends Model<T>, TId extends number> {
    * @param options
    * @returns {object} paginted data
    */
-  findAndCountAll = async (options: IFindAllPagination) => {
-    const { limit, requestedPage, include, where } = options;
+  findAndCountAllOrderedByPrice = async (options: IFindAllPagination) => {
+    const { limit, requestedPage, include, where, orderDirection } = options;
     const count = await this.model.count({ where });
     const totalPages = Math.ceil(count / limit) || 1;
     const page = this.getValidPageNumber(requestedPage, totalPages);
@@ -89,14 +89,15 @@ export class BaseService<T extends Model<T>, TId extends number> {
       limit,
       include,
       where,
+      order: [['price', orderDirection]],
     });
     const data = rows.map((entry) => entry.get() as T);
     return { pageMeta: { count, totalPages, page, limit }, data };
   };
 
   /**
-   * @method delete 
-   * @param id 
+   * @method delete
+   * @param id
    */
   async delete(id: any) {
     return await this.model.destroy({
@@ -121,4 +122,5 @@ export interface IFindAllPagination {
   requestedPage: number;
   include?: Includeable[];
   where?: WhereOptions;
+  orderDirection: 'ASC' | 'DESC';
 }
