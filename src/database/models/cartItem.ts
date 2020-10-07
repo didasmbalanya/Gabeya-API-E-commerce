@@ -22,15 +22,15 @@ export default class CartItem extends Model<CartItem> {
   cartId: number;
 
   @BelongsTo(() => Item)
-  Item: Item;
+  item: Item;
 
   @ForeignKey(() => Item)
   @PrimaryKey
   @Column
-  ItemId: number;
+  itemId: number;
 
   @Column({
     type: DataType.STRING,
   })
-  quanity: number;
+  quantity: number;
 }
