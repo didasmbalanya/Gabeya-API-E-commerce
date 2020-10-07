@@ -18,6 +18,7 @@ const router = Router();
  *       content:
  *         application/x-www-form-urlencoded:
  *           schema:
+ *            type: object
  *            properties:
  *              firstName:
  *                 type: string
@@ -34,6 +35,11 @@ const router = Router();
  *              password:
  *                 type: string
  *                 description: user password
+ *            required:
+ *               - firstName
+ *               - lastName
+ *               - email
+ *               - password
  *      responses:
  *        200:
  *          description: success
@@ -59,6 +65,7 @@ router.post('/register', validatorMiddleware(userSchema, 'body'), register);
  *       content:
  *         application/x-www-form-urlencoded:
  *           schema:
+ *            type: object
  *            properties:
  *              email:
  *                 type: string
@@ -66,6 +73,9 @@ router.post('/register', validatorMiddleware(userSchema, 'body'), register);
  *              password:
  *                 type: string
  *                 description: user password
+ *            required:
+ *               - email
+ *               - password
  *      responses:
  *        200:
  *          description: success

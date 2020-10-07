@@ -6,8 +6,8 @@ import {
 
 export const itemSchema = Joi.object({
   name: requiredStringSchema,
-  photo: requiredStringSchema,
-  price: Joi.number(),
+  photo: nameSchema,
+  price: Joi.number().required(),
   description: nameSchema,
   vendorName: nameSchema,
 });
