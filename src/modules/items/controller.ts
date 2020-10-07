@@ -75,3 +75,66 @@ export const getItem = async (
     next((error.errors && error.errors[0]) || error);
   }
 };
+
+/**
+ * @function updateItem used to update a single item
+ * @param req
+ * @param res
+ * @param next
+ */
+export const updateItem = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { name, photo, price, description, vendorName } = req.body;
+    const { id } = req.params;
+
+    const updated = await itemService.update(id, {
+      name,
+      photo,
+      price,
+      description,
+      vendorName,
+    });
+
+    res.send({ updated });
+  } catch (error) {
+    next((error.errors && error.errors[0]) || error);
+  }
+};
+
+/**
+ * @function deleteItem used to delete a single item
+ * @param req
+ * @param res
+ * @param next
+ */
+export const deleteItem = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+  } catch (error) {
+    next((error.errors && error.errors[0]) || error);
+  }
+};
+
+/**
+ * @function getItems used to get a paginted and sorted list
+ * @param req
+ * @param res
+ * @param next
+ */
+export const getItems = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+  } catch (error) {
+    next((error.errors && error.errors[0]) || error);
+  }
+};

@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
 import { paramIdObject } from '../../utils/validationSchemas';
-import { createItem, getItem } from './controller';
-import { itemSchema } from './validationSchema';
+import { createItem, getItem, updateItem } from './controller';
+import { itemSchema, itemUpdateSchema } from './validationSchema';
 const router = Router();
 
 /**
@@ -82,5 +82,62 @@ router.post('/', validatorMiddleware(itemSchema, 'body'), createItem);
  *
  */
 router.get('/:id', validatorMiddleware(paramIdObject, 'params'), getItem);
+
+/**
+ * @swagger
+ * path:
+ *   /items/{id}:
+ *    put:
+ *      tags:
+ *        - item
+ *      description: update one item
+ *      security:
+ *        - basicAuth : []
+ *      parameters:
+ *        - name: id
+ *          in: path
+ *          required: true
+ *          style: form
+ *          description: unique key identifier
+ *          schema:
+ *           type: integer
+ *      produces:
+ *        - application/json
+ *      requestBody:
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                 type: string
+ *                 description: item name
+ *              photo:
+ *                 type: string
+ *                 description: link to photo
+ *              price:
+ *                 type: number
+ *                 description: price of item
+ *              description:
+ *                 type: string
+ *                 description: short description about item
+ *              vendorName:
+ *                 type: string
+ *                 description: vendor name, defaults to sellers name
+ *      responses:
+ *        200:
+ *          description: success
+ *        401:
+ *          description: unauthenticated
+ *        500:
+ *          description: server error
+ *
+ */
+router.put(
+  '/:id',
+  validatorMiddleware(paramIdObject, 'params'),
+  validatorMiddleware(itemUpdateSchema, 'body'),
+  updateItem
+);
 
 export default router;

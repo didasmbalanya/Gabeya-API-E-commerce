@@ -30,16 +30,14 @@ export class BaseService<T extends Model<T>, TId extends number> {
    * @param data data to update
    */
   async update(id: TId | string | number, data: any) {
-    const [number, [result]] = await this.model.update(
+    const result = await this.model.update(
       { ...data },
       {
         where: { id },
-        returning: true,
       }
     );
 
-    if (number) return result.get() as T;
-    return null;
+    return !!result[0];
   }
 
   /**
@@ -51,7 +49,7 @@ export class BaseService<T extends Model<T>, TId extends number> {
     model: TInterface,
     t?: Transaction
   ) => {
-    const result = await this.model.create(model, { transaction: t,  });
+    const result = await this.model.create(model, { transaction: t });
     return result ? (result.get({ plain: true }) as T) : null;
   };
 
