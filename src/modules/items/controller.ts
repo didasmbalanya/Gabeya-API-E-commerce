@@ -172,9 +172,15 @@ export const getItems = async (
   next: NextFunction
 ) => {
   const { order, page, limit } = req.query;
-  const toUpper = (order as string).toUpperCase();
+  const orderToUpper = (order as string).toUpperCase();
 
-  res.send({ toUpper, page, limit });
+  const items = await itemService.findAndCountAllOrderedByPrice({
+    limit: (limit as unknown as number),
+    orderDirection: orderToUpper as any,
+    requestedPage: page as unknown as number,
+  });
+
+  res.send({ items });
   try {
   } catch (error) {
     next((error.errors && error.errors[0]) || error);

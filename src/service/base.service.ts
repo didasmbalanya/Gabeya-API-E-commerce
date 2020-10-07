@@ -81,9 +81,9 @@ export class BaseService<T extends Model<T>, TId extends number> {
   findAndCountAllOrderedByPrice = async (options: IFindAllPagination) => {
     const { limit, requestedPage, include, where, orderDirection } = options;
     const count = await this.model.count({ where });
-    const totalPages = Math.ceil(count / limit) || 1;
+    const totalPages = Math.ceil(count / limit!) || 1;
     const page = this.getValidPageNumber(requestedPage, totalPages);
-    const offset = (page - 1) * limit;
+    const offset = (page - 1) * limit!;
     const { rows } = await this.model.findAndCountAll({
       offset,
       limit,
@@ -118,7 +118,7 @@ export class BaseService<T extends Model<T>, TId extends number> {
 }
 
 export interface IFindAllPagination {
-  limit: number;
+  limit?: number;
   requestedPage: number;
   include?: Includeable[];
   where?: WhereOptions;
