@@ -171,17 +171,17 @@ export const getItems = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { order, page, limit } = req.query;
-  const orderToUpper = (order as string).toUpperCase();
-
-  const items = await itemService.findAndCountAllOrderedByPrice({
-    limit: (limit as unknown as number),
-    orderDirection: orderToUpper as any,
-    requestedPage: page as unknown as number,
-  });
-
-  res.send({ items });
   try {
+    const { order, page, limit } = req.query;
+    const orderToUpper = (order as string).toUpperCase();
+
+    const items = await itemService.findAndCountAllOrderedByPrice({
+      limit: (limit as unknown) as number,
+      orderDirection: orderToUpper as any,
+      requestedPage: (page as unknown) as number,
+    });
+
+    return res.send({ items });
   } catch (error) {
     next((error.errors && error.errors[0]) || error);
   }

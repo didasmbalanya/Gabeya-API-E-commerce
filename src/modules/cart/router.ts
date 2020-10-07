@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validatorMiddleware } from '../../utils/middlewares/schema-validator';
-import { addItemToCart, createCart } from './controller';
+import { addItemToCart, createCart, getCartDetails } from './controller';
 import { cartObjectSchema } from './validationSchema';
 const router = Router();
 
@@ -71,5 +71,28 @@ router.post(
   validatorMiddleware(cartObjectSchema, 'body'),
   addItemToCart
 );
+
+/**
+ * @swagger
+ * path:
+ *   /cart/:
+ *    get:
+ *      tags:
+ *        - cart
+ *      description: get cart details
+ *      produces:
+ *        - application/json
+ *      security:
+ *        - basicAuth : []
+ *      responses:
+ *        200:
+ *          description: success
+ *        401:
+ *          description: unauthenticated
+ *        500:
+ *          description: server error
+ *
+ */
+router.get('/', getCartDetails);
 
 export default router;
