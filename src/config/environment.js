@@ -32,7 +32,7 @@ const environment = {
   DATABASE_USERNAME: process.env.MYSQL_USER || 'user',
   DATABASE_PASSWORD: process.env.MYSQL_PASSWORD || 'password',
   DATABASE_DIALECT: process.env.DATABASE_DIALECT || 'mysql',
-  ACCESS_TOKEN_SECRET_KEY: process.env.ACCESS_TOKEN_SECRET_KEY,
+  ACCESS_TOKEN_SECRET_KEY: process.env.ACCESS_TOKEN_SECRET_KEY || 'secret',
   DATABASE_HOST: process.env.DATABASE_HOST || '127.0.0.1',
 };
 

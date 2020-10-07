@@ -31,4 +31,4 @@ services:
       MYSQL_USER: users_service
       MYSQL_PASSWORD: 123
       PORT: 5000
-      DB_PORT: 33060
+      DB_PORT: 3306
